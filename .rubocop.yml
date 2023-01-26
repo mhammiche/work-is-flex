@@ -1,0 +1,100 @@
+require:
+  - rubocop-rails
+  - rubocop-performance
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'bin/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'db/schema.rb'
+
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - 'spec/**/*'
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+Lint/RaiseException:
+  Enabled: true
+Lint/StructNewOverride:
+  Enabled: true
+Metrics/AbcSize:
+  Exclude:
+    - 'db/migrate/*'
+    - 'spec/**/*'
+    - 'db/seeds/*'
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'db/migrate/*'
+    - 'config/routes.rb'
+Metrics/ClassLength:
+  Exclude:
+    - 'db/seeds/*'
+    - 'lib/tests_seeder.rb'
+Metrics/MethodLength:
+  CountAsOne: ['array', 'hash']
+  Exclude:
+    - 'db/migrate/*'
+    - 'spec/**/*'
+    - 'db/seeds/*'
+Naming/VariableNumber:
+  Exclude:
+    - 'spec/**/*'
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/**/*'
+Rails/Output:
+  Exclude:
+    - 'db/seeds/*'
+    - 'db/seeds.rb'
+Rails/ContentTag:
+  Exclude:
+    - 'db/migrate/*.rb'
+Rails/SkipsModelValidations:
+  AllowedMethods:
+    - touch
+    - update_column
+    - update_columns
+    - upsert_all
+    - increment!
+    - decrement!
+  Exclude:
+    - 'spec/**/*'
+Rails/BulkChangeTable:
+  Enabled: false
+Style/AsciiComments:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/ExponentialNotation:
+  Enabled: true
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+Style/NumericPredicate:
+  Enabled: false
+Style/NegatedIf:
+  Enabled: false
+Style/RedundantFetchBlock:
+  Enabled: true
+Style/RedundantReturn:
+  Enabled: false
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+Style/RedundantRegexpEscape:
+  Enabled: true
+Style/SlicingWithRange:
+  Enabled: true
+Style/RedundantConstantBase:
+  Enabled: false
