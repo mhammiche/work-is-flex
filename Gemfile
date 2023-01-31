@@ -50,6 +50,9 @@ gem 'bootsnap', require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+gem 'aasm', '~> 5.4'
+gem 'phonelib', '~> 0.7.6'
+
 gem 'slim-rails', '~> 3.5', '>= 3.5.1'
 gem "bulma-rails", "~> 0.9.4"
 
@@ -71,4 +74,11 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+end
+
+# Run against this stable release
+group :development, :test do
+  gem 'factory_bot_rails', '~> 6.2'
+  gem 'rspec-rails', '~> 6.0', '>= 6.0.1'
+  gem 'shoulda-matchers', '~> 5.3'
 end
