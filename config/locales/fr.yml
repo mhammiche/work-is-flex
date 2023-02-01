@@ -1,0 +1,25 @@
+fr:
+  activerecord:
+    models:
+      booking_request: Réservation
+    attributes:
+      booking_request:
+        name: Nom
+        email: Email
+        phone: Numéro de téléphone
+        biography: Biographie
+    errors:
+      models:
+        booking_request:
+          format: '%{message}'
+          attributes:
+            name:
+              blank: Indiquer votre nom complet
+            email:
+              invalid: Indiquer un email valide (ex. dumont@example.com)
+            phone:
+              invalid: Indiquer un numéro de téléphone valide (ex. 01 99 00 12 34)
+            biography:
+              invalid: Rediger une courte description de votre projet (5 mots minimum)
+  notifications:
+    booking_request_created: Votre demande de réservation a été enregistré. Nous venons de vous envoyer un mail de confirmation avec les instructions de valider votre demande.

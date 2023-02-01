@@ -77,6 +77,8 @@ GEM
     builder (3.2.4)
     bulma-rails (0.9.4)
       sassc (~> 2.0)
+    bulma_form_builder (0.4.3)
+      rails (>= 6.0.4.1)
     capybara (3.38.0)
       addressable
       matrix
@@ -281,6 +283,7 @@ DEPENDENCIES
   aasm (~> 5.4)
   bootsnap
   bulma-rails (~> 0.9.4)
+  bulma_form_builder (~> 0.4.3)
   capybara
   debug
   factory_bot_rails (~> 6.2)

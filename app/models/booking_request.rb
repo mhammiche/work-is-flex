@@ -6,8 +6,8 @@ class BookingRequest < ApplicationRecord
   BIO_MIN_WORDS = 5
 
   validates :name, presence: true
-  validates :email, presence: true, email: true
-  validates :phone, presence: true, phone: true
+  validates :email, email: true
+  validates :phone, phone: true
   validate :biography_is_good_enough
 
   after_validation :normalize_phone

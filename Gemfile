@@ -55,6 +55,7 @@ gem 'phonelib', '~> 0.7.6'
 
 gem 'slim-rails', '~> 3.5', '>= 3.5.1'
 gem "bulma-rails", "~> 0.9.4"
+gem 'bulma_form_builder', '~> 0.4.3'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -1,0 +1,7 @@
+= form_with(model: @booking_request, builder: BulmaFormBuilder::FormBuilder) do |form|
+  = form.text_field :name, placeholder: 'Paul Dumont', help: 'Votre nom complet'
+  = form.text_field :email, type: :email, placeholder: 'paul.dumont@example.com', help: 'Votre email'
+  = form.text_field :phone, type: :phone, placeholder: '01 99 00 12 34', help: 'Un numero pour vous joindre'
+  = form.text_area :biography, help: 'Votre projet en 5 mots minimum'
+  div
+    = form.submit 'Je réserve ma place', class: 'button is-primary'
