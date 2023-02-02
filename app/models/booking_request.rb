@@ -12,6 +12,8 @@ class BookingRequest < ApplicationRecord
 
   after_validation :normalize_phone
 
+  after_commit :send_email_verification, on: :create
+
   aasm column: 'state', timestamps: true do
     state :unconfirmed, initial: true
     state :confirmed
@@ -25,6 +27,10 @@ class BookingRequest < ApplicationRecord
 
   # Redefine confirmed scope to sort by confirmation date
   scope :confirmed, -> { where(state: BookingRequest::STATE_CONFIRMED).order(:confirmed_at) }
+
+  def send_email_verification
+    BookingRequestMailer.with(booking_request: self, token: 'FOO').email_verification.deliver_later
+  end
 
   private
 

@@ -1,0 +1,14 @@
+p
+ span> Cher
+ = @booking_request.name
+
+p Nous sommes ravis de vous accueillir parmi nous ! Nous voulons nous assurer que nous disposons de votre adresse email correcte pour vous envoyer des mises à jour importantes.
+
+p Veuillez confirmer votre adresse email en cliquant sur le lien ci-dessous :
+
+p
+  = link_to @confirmation_url, @confirmation_url
+
+p Si vous ne pouvez pas cliquer sur le lien, veuillez le copier et le coller dans votre navigateur.
+
+p Cordialement,

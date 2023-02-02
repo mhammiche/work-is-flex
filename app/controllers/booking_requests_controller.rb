@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class BookingRequestsController < ApplicationController
-  before_action :set_booking_request, only: %i[ show edit update destroy ]
+  before_action :set_booking_request, only: %i[show edit update confirm]
 
   # GET /booking_requests or /booking_requests.json
   def index
@@ -7,8 +9,7 @@ class BookingRequestsController < ApplicationController
   end
 
   # GET /booking_requests/1 or /booking_requests/1.json
-  def show
-  end
+  def show; end
 
   # GET /booking_requests/new
   def new
@@ -16,8 +17,7 @@ class BookingRequestsController < ApplicationController
   end
 
   # GET /booking_requests/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /booking_requests or /booking_requests.json
   def create
@@ -25,11 +25,11 @@ class BookingRequestsController < ApplicationController
 
     respond_to do |format|
       if @booking_request.save
-        format.html { redirect_to booking_request_url(@booking_request), notice: I18n.t('notifications.booking_request_created') }
-        format.json { render :show, status: :created, location: @booking_request }
+        format.html do
+          redirect_to booking_request_url(@booking_request), notice: I18n.t('booking_request.events.created')
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @booking_request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -38,23 +38,38 @@ class BookingRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @booking_request.update(booking_request_params)
-        format.html { redirect_to booking_request_url(@booking_request), notice: "Booking request was successfully updated." }
-        format.json { render :show, status: :ok, location: @booking_request }
+        format.html do
+          redirect_to booking_request_url(@booking_request), notice: I18n.t('notifications.booking_request_confirmed')
+        end
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @booking_request.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST /booking_requests/1 or /booking_requests/1.json
+  def confirm
+    outcome = ConfirmBookingRequest.run(booking_request: @booking_request, token: params[:token])
+    respond_to do |format|
+      if outcome.valid?
+        format.html do
+          redirect_to booking_request_url(@booking_request), notice: I18n.t('booking_request.events.confirmed')
+        end
+      else
+        format.html { redirect_to home_url, error: 'Le lien de confirmation est invalide' }
       end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_booking_request
-      @booking_request = BookingRequest.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def booking_request_params
-      params.require(:booking_request).permit(:name, :email, :phone, :biography)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_booking_request
+    @booking_request = BookingRequest.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def booking_request_params
+    params.require(:booking_request).permit(:name, :email, :phone, :biography)
+  end
 end

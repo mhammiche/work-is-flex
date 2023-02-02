@@ -21,9 +21,9 @@ module App
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.action_view.field_error_proc = Proc.new do |html_tag, instance|
-      #%Q(<div class="field_with_errors">#{html_tag}</div>).html_safe
-      html_tag.gsub(/class="/, "class=\"field_with_errors ").html_safe
+    config.action_view.field_error_proc = proc do |html_tag, _instance|
+      # %Q(<div class="field_with_errors">#{html_tag}</div>).html_safe
+      html_tag.gsub(/class="/, 'class="field_with_errors ').html_safe
     end
 
     config.active_model.i18n_customize_full_message = true

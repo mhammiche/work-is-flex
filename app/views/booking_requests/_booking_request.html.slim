@@ -1,25 +1,26 @@
 div id="#{dom_id booking_request}"
   h2.title.is-4 Votre demande de réservation
   .block
-    strong Demandé le :&nbsp;
-    = time_tag @booking_request.created_at
+    strong> Demandé le :
+    span = time_tag @booking_request.created_at
     br
-    strong Nom :&nbsp;
-    = @booking_request.name
+    strong> Nom :
+    span = @booking_request.name
     br
-    strong Email :&nbsp;
-    = @booking_request.email
+    strong> Email :
+    span = @booking_request.email
     br
-    strong Tél. :&nbsp;
-    = @booking_request.phone
+    strong> Tél. :
+    span = @booking_request.phone
     br
-    strong Etat :&nbsp;
+    strong> Etat :
     = status_tag( @booking_request.state)
   .block
     .notification
-      p Votre demande est en attente de confirmation. Cliquer sur le lien dans du mail de confirmation par valider votre demande.
+      p = I18n.t("booking_request.states.#{@booking_request.state}.description")
 
-  .block.buttons
-    button.button.is-outline Renvoyer à nouveau
+  .block.buttons.is-justify-content-center
+    - if @booking_request.unconfirmed?
+      button.button.is-outline Renvoyer à nouveau
     a.button.is-primary(href=root_path) Revenir a accueil
 

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :booking_request do
-    sequence(:email) { |n| "jdoe#{n}@example.com"}
+    sequence(:email) { |n| "jdoe#{n}@example.com" }
     name { 'John Doe' }
     phone { '+33123456789' }
-    biography { "I am a good enough description" }
+    biography { 'I am a good enough description' }
     state { 'unconfirmed' }
 
     trait :unconfirmed do
