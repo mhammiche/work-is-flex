@@ -15,12 +15,19 @@ div id="#{dom_id booking_request}"
     br
     strong> Etat :
     = status_tag( @booking_request.state)
+    br
+    - if @booking_request.contract_signed?
+      strong> Contrat signé le :
+      = time_tag @booking_request.contract_signed_at
+      br
   .block
     .notification
       p = I18n.t("booking_request.states.#{@booking_request.state}.description")
 
   .block.buttons.is-justify-content-center
     - if @booking_request.unconfirmed?
-      button.button.is-outline Renvoyer à nouveau
-    a.button.is-primary(href=root_path) Revenir a accueil
+      button.button.is-primary Renvoyer à nouveau
+    - if @booking_request.signature_required?
+      = link_to 'Signer le contrat', sign_booking_request_path(@booking_request), class: 'button is-primary', data: {turbo_method: :post}
+    a.button.is-outline(href=root_path) Revenir a accueil
 

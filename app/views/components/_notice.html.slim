@@ -2,3 +2,8 @@
   .notification.is-info[data-controller='notice' data-notice-target='el']
     button.delete[data-action='click->notice#close']
     = notice
+
+- if alert
+  .notification.is-warning[data-controller='notice' data-notice-target='el']
+    button.delete[data-action='click->notice#close']
+    = alert

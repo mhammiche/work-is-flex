@@ -1,0 +1,24 @@
+.block
+  .card
+    .card-content
+      .columns
+        .column
+          strong> Demandé le :
+          span = time_tag booking_request.created_at
+          br
+          strong> Nom :
+          span = booking_request.name
+          br
+          strong> Email :
+          span = booking_request.email
+          br
+          strong> Tél. :
+          span = booking_request.phone
+        .column
+          strong Biographie
+          br
+          = booking_request.biography
+    .card-footer
+      -if booking_request.confirmed?
+        = link_to 'Accepter', accept_admin_booking_request_path(booking_request), class: 'card-footer-item', data: {turbo_method: :post}
+        = link_to 'Refuser', decline_admin_booking_request_path(booking_request), class: 'card-footer-item', data: {turbo_method: :post}

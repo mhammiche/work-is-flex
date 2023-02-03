@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BookingRequestsController < ApplicationController
-  before_action :set_booking_request, only: %i[show edit update confirm]
+  before_action :set_booking_request, only: %i[show edit confirm sign]
 
   # GET /booking_requests or /booking_requests.json
   def index
@@ -34,20 +34,7 @@ class BookingRequestsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /booking_requests/1 or /booking_requests/1.json
-  def update
-    respond_to do |format|
-      if @booking_request.update(booking_request_params)
-        format.html do
-          redirect_to booking_request_url(@booking_request), notice: I18n.t('notifications.booking_request_confirmed')
-        end
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # POST /booking_requests/1 or /booking_requests/1.json
+  # POST /booking_requests/1/confirm
   def confirm
     outcome = ConfirmBookingRequest.run(booking_request: @booking_request, token: params[:token])
     respond_to do |format|
@@ -56,7 +43,21 @@ class BookingRequestsController < ApplicationController
           redirect_to booking_request_url(@booking_request), notice: I18n.t('booking_request.events.confirmed')
         end
       else
-        format.html { redirect_to home_url, error: 'Le lien de confirmation est invalide' }
+        format.html { redirect_to booking_request_url(@booking_request), error: outcome.errors.full_messages }
+      end
+    end
+  end
+
+  # POST /booking_requests/1/sign
+  def sign
+    outcome = SignContract.run(booking_request: @booking_request)
+    respond_to do |format|
+      if outcome.valid?
+        format.html do
+          redirect_to booking_request_url(@booking_request), notice: I18n.t('booking_request.events.signed')
+        end
+      else
+        format.html {  redirect_to booking_request_url(@booking_request), error: outcome.errors.full_messages }
       end
     end
   end

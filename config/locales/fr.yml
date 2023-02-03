@@ -32,9 +32,15 @@ fr:
       accepted:
         label: Acceptée
         description: Votre demande a été acceptée. Une place a été réservé pour vous dans notre espace de coworking. Signer le contrat ci-dessous pour valider votre inscription. Vous avez 48 heures pour signer le contrat. Passé ce délai votre reservation sera annulé.
+      contract_signed:
+        label: Contrat Signé
+        description: Votre réservation est active
       expired:
         label: Expirée
         description: Votre reservation a expiré. Vous pouvez faire une nouvelle demande si vous le souhaitez.
     events:
       created: Votre demande de réservation a été enregistré. Nous venons de vous envoyer un mail de confirmation avec les instructions de valider votre demande.
       confirmed: Votre demande de réservation a été confirmé.
+      accepted: La demande de réservation a été accepté
+      signed: Votre contrat a été signé
+      declined: La demande de réservation a été refusé

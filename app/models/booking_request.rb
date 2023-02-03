@@ -18,15 +18,37 @@ class BookingRequest < ApplicationRecord
     state :unconfirmed, initial: true
     state :confirmed
     state :accepted
+    state :contract_signed
     state :expired
+    state :declined
 
     event :confirm do
       transitions from: :unconfirmed, to: :confirmed
+    end
+
+    event :accept do
+      transitions from: :confirmed, to: :accepted
+    end
+
+    event :sign do
+      transitions from: :accepted, to: :contract_signed
+    end
+
+    event :decline do
+      transitions from: :confirmed, to: :declined
     end
   end
 
   # Redefine confirmed scope to sort by confirmation date
   scope :confirmed, -> { where(state: BookingRequest::STATE_CONFIRMED).order(:confirmed_at) }
+
+   # Group state accepted and contract_signed
+   scope :accepted, -> { where(state: [BookingRequest::STATE_ACCEPTED, BookingRequest::STATE_CONTRACT_SIGNED,]).order(:accepted_at) }
+
+
+  def signature_required?
+    accepted? && !contract_signed_at
+  end
 
   def send_email_verification
     BookingRequestMailer.with(booking_request: self, token: 'FOO').email_verification.deliver_later

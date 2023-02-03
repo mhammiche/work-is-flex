@@ -1,0 +1,14 @@
+p
+ span> Cher
+ = @booking_request.name
+
+p Nous sommes ravis de vous informer que votre demande de réservation de place de coworking a été acceptée ! Nous sommes impatients de vous accueillir dans notre espace de travail collaboratif et créatif.
+
+p Veuillez signer votre contrat disponible via le lien ci-dessous :
+
+p
+  = link_to @booking_request_url, @booking_request_url
+
+p Si vous ne pouvez pas cliquer sur le lien, veuillez le copier et le coller dans votre navigateur.
+
+p Cordialement,

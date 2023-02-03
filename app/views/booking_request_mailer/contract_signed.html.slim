@@ -1,0 +1,20 @@
+p
+ span> Cher
+ = @booking_request.name
+
+p Votre contrat est signé.
+
+p Veuillez signer votre contrat disponible via le lien ci-dessous :
+
+p
+  strong> Date :
+  = time_tag @booking_request.accepted_at
+  br
+  strong>Durée :
+  span 3 mois
+  strong> Emplacement :
+  span Salle Berlioz
+
+p Veuillez noter que vous devez renconfirmer votre réservation tous les 3 mois.
+
+p Cordialement,

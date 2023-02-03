@@ -1,0 +1,15 @@
+h2.title.is-4 Demandes de réservation en attente
+
+-if @confirmed_requests.present?
+  = render partial: 'booking_request', collection: @confirmed_requests
+- else
+  .notification
+    | Il y a aucune demande de réservation en attente de validation.
+
+h2.title.is-4 Demandes acceptés
+
+-if @accepted_requests.present?
+  = render partial: 'booking_request', collection: @accepted_requests
+-else
+  .notification
+  | Il y a aucune demande de réservation acceptées
