@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BookingRequestsController < ApplicationController
-  before_action :set_booking_request, only: %i[show edit confirm sign]
+  before_action :set_booking_request, only: %i[show edit confirm sign renew]
 
   # GET /booking_requests or /booking_requests.json
   def index
@@ -55,6 +55,20 @@ class BookingRequestsController < ApplicationController
       if outcome.valid?
         format.html do
           redirect_to booking_request_url(@booking_request), notice: I18n.t('booking_request.events.signed')
+        end
+      else
+        format.html {  redirect_to booking_request_url(@booking_request), error: outcome.errors.full_messages }
+      end
+    end
+  end
+
+  # POST /booking_requests/1/renew
+  def renew
+    outcome = RenewContract.run(booking_request: @booking_request)
+    respond_to do |format|
+      if outcome.valid?
+        format.html do
+          redirect_to booking_request_url(@booking_request), notice: I18n.t('booking_request.events.renewed')
         end
       else
         format.html {  redirect_to booking_request_url(@booking_request), error: outcome.errors.full_messages }

@@ -29,5 +29,7 @@ div id="#{dom_id booking_request}"
       button.button.is-primary Renvoyer à nouveau
     - if @booking_request.signature_required?
       = link_to 'Signer le contrat', sign_booking_request_path(@booking_request), class: 'button is-primary', data: {turbo_method: :post}
+    - if @booking_request.will_expire_soon?
+      = link_to 'Renouveler mon contrat', renew_booking_request_path(@booking_request), class: 'button is-primary', data: {turbo_method: :post}
     a.button.is-outline(href=root_path) Revenir a accueil
 

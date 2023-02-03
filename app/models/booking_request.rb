@@ -37,17 +37,51 @@ class BookingRequest < ApplicationRecord
     event :decline do
       transitions from: :confirmed, to: :declined
     end
+
+    event :expire do
+      transitions from: :accepted, to: :expired
+    end
+
+    event :renew do
+      transitions from: :contract_signed,
+        to: :contract_signed,
+        after: :touch_renewed_at,
+        guard: :will_expire_soon?
+    end
   end
 
   # Redefine confirmed scope to sort by confirmation date
   scope :confirmed, -> { where(state: BookingRequest::STATE_CONFIRMED).order(:confirmed_at) }
 
-   # Group state accepted and contract_signed
-   scope :accepted, -> { where(state: [BookingRequest::STATE_ACCEPTED, BookingRequest::STATE_CONTRACT_SIGNED,]).order(:accepted_at) }
+  # Group state accepted and contract_signed
+  scope :accepted, -> { where(state: [BookingRequest::STATE_ACCEPTED, BookingRequest::STATE_CONTRACT_SIGNED,]).order(:accepted_at) }
 
 
   def signature_required?
     accepted? && !contract_signed_at
+  end
+
+  def contract_expire_at
+    return nil unless contract_signed?
+
+    (renewed_at || accepted_at) + 3.months
+  end
+
+  def renewing_period
+    beginning = contract_expire_at - 10.days
+    beginning..contract_expire_at
+  end
+
+  def will_expire_soon?
+    return false unless contract_signed?
+
+    renewing_period.cover?(Time.zone.now)
+  end
+
+  def will_expire_now?
+    return false unless contract_signed?
+
+    contract_expire_at <= Time.zone.now
   end
 
   def send_email_verification
@@ -62,5 +96,9 @@ class BookingRequest < ApplicationRecord
 
   def biography_is_good_enough
     errors.add(:biography, :invalid) if biography.to_s.split(/\W/).length < BIO_MIN_WORDS
+  end
+
+  def touch_renewed_at
+    self.renewed_at = Time.zone.now
   end
 end

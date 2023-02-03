@@ -28,4 +28,11 @@ class BookingRequestMailer < ApplicationMailer
 
     mail(to: @booking_request.email, subject: 'Votre contrat a été signé')
   end
+
+  def expiration_reminder
+    @booking_request = params[:booking_request]
+    @booking_request_url = booking_request_url(@booking_request)
+
+    mail(to: @booking_request.email, subject: 'Votre contrat va bientôt expiré')
+  end
 end

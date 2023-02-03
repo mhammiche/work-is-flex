@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'sidekiq/web'
 
 Rails.application.routes.draw do
   root 'home#index'
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
     member do
       get :confirm
       post :sign
+      post :renew
     end
   end
 
@@ -17,4 +19,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  mount Sidekiq::Web => '/sidekiq'
 end

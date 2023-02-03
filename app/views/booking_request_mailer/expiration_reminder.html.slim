@@ -1,0 +1,15 @@
+p
+ span> Cher
+ = @booking_request.name
+
+p
+  span> Votre contrat arrive à échéance le
+  =time_tag @booking_request.contract_expire_at
+
+p Veuillez renouveller votre contrat avant cette date via le lien ci-dessous
+
+= link_to @booking_request_url, @booking_request_url
+
+p Si vous ne pouvez pas cliquer sur le lien, veuillez le copier et le coller dans votre navigateur.
+
+p Cordialement,

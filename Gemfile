@@ -50,6 +50,9 @@ gem 'bootsnap', require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+gem 'redis', '~> 5.0', '>= 5.0.6'
+gem 'sidekiq', '~> 7.0', '>= 7.0.3'
+
 gem 'aasm', '~> 5.4'
 gem 'active_interaction', '~> 5.2'
 gem 'phonelib', '~> 0.7.6'

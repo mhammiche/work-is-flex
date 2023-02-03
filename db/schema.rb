@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_02_215152) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_03_111015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_02_215152) do
     t.datetime "updated_at", null: false
     t.datetime "declined_at"
     t.datetime "contract_signed_at"
+    t.datetime "renewed_at"
     t.index ["confirmed_at"], name: "index_booking_requests_on_confirmed_at"
     t.index ["email"], name: "index_booking_requests_on_email"
     t.index ["state"], name: "index_booking_requests_on_state"

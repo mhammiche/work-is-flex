@@ -6,6 +6,7 @@ class AcceptBookingRequest < ActiveInteraction::Base
   def execute
     booking_request.accept!
     send_request_accepted
+    schedule_contract_expiration
     booking_request
   end
 
@@ -13,5 +14,9 @@ class AcceptBookingRequest < ActiveInteraction::Base
 
   def send_request_accepted
     BookingRequestMailer.with(booking_request: booking_request).request_accepted.deliver_later
+  end
+
+  def schedule_contract_expiration
+    ExpireContractJob.perform_in(48.hours, booking_request.id)
   end
 end
